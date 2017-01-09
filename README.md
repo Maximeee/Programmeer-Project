@@ -41,6 +41,7 @@ in de recepten (bv. vegatariers kunnen aangeven dat ze geen vlees eten, zodat ze
 Je kan een sms verzenden naar iemand anders met de missende producten. Facebookintegratie zodat je kan opscheppen over je kookkunsten.
 https://play.google.com/store/apps/details?id=com.fridgecheck
 
-
+### App overview:
+![App overview](/doc/overview.jpg)
 
 
