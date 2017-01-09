@@ -42,6 +42,6 @@ Je kan een sms verzenden naar iemand anders met de missende producten. Facebooki
 https://play.google.com/store/apps/details?id=com.fridgecheck
 
 ### App overview:
-![App overview](/doc/overview.jpg)
+![App overview](https://github.com/Maximeee/Programmeer-Project/blob/master/doc/Overview.jpg)
 
 
