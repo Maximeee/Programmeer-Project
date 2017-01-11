@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "452289160504",
+    "firebase_url": "https://what-to-eat-eb5cf.firebaseio.com",
+    "project_id": "what-to-eat-eb5cf",
+    "storage_bucket": "what-to-eat-eb5cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452289160504:android:9c78094b0e615420",
+        "android_client_info": {
+          "package_name": "nl.mprog.whattoeat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452289160504-s0g4tjfsbv7cks0d8adp6uf87mvebmvt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqtmWnycHdIEkzKOlvjXEsVYPHt7hTTOw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
