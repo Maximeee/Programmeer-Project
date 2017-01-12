@@ -26,7 +26,10 @@
         <activity
             android:name=".GoogleActivity"
             android:label="@string/title_activity_google" />
-        <activity android:name=".GroceryActivity"></activity>
+        <activity android:name=".GroceryActivity" />
+        <activity android:name=".recipefinderActivity" />
+        <activity android:name=".recipeProductActivity" />
+        <activity android:name=".favoriteActivity"></activity>
     </application>
 
 </manifest>

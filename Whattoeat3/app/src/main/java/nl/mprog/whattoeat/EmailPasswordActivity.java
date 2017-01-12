@@ -62,6 +62,8 @@ public class EmailPasswordActivity extends BaseActivity implements
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    next();
+
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -72,6 +74,11 @@ public class EmailPasswordActivity extends BaseActivity implements
             }
         };
         // [END auth_state_listener]
+    }
+
+    private void next() {
+        Intent intent = new Intent(this, GroceryActivity.class);
+        startActivity(intent);
     }
 
     // [START on_start_add_listener]
@@ -150,19 +157,12 @@ public class EmailPasswordActivity extends BaseActivity implements
                         // [START_EXCLUDE]
                         if (!task.isSuccessful()) {
                             mStatusTextView.setText(R.string.auth_failed);
-                        } else {
-                            next();
                         }
                         hideProgressDialog();
                         // [END_EXCLUDE]
                     }
                 });
         // [END sign_in_with_email]
-    }
-
-    private void next() {
-        Intent intent = new Intent();
-        startActivity(intent);
     }
 
     private void signOut() {
