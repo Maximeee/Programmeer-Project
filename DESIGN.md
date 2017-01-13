@@ -21,3 +21,6 @@ De classes:
 - Favorieten class: Hier worden de opgeslagen recepten weer gegeven.
 - Boodschappenlijst class: Hier staat een overzicht van de recepten, als je doorklikt krijg je het specifieke bodschappenlijstje te zien
 - Boodschappenlijst 2 class: Hier staat de daadwerkelijke boodschappen lijst
+
+
+![App overview](https://github.com/Maximeee/Programmeer-Project/blob/master/doc/Overview.jpg)
