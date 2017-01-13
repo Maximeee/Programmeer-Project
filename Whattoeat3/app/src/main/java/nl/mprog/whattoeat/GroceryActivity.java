@@ -8,38 +8,45 @@ import android.widget.Button;
 
 public class GroceryActivity extends AppCompatActivity {
 
-    Button yesbutton = (Button) findViewById(R.id.yesbutton);
-    Button nobutton = (Button) findViewById(R.id.nobutton);
-    Button favorites = (Button) findViewById(R.id.favorites);
+    Button yesbutton;
+    Button nobutton;
+    Button favorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grocery);
 
-//        Button yesbutton = (Button) findViewById(R.id.yesbutton);
-//        Button nobutton = (Button) findViewById(R.id.nobutton);
-//        Button favorites = (Button) findViewById(R.id.favorites);
-    }
+        yesbutton = (Button) findViewById(R.id.yesbutton);
+        nobutton = (Button) findViewById(R.id.nobutton);
+        favorites = (Button) findViewById(R.id.favorites);
 
-    void buttonClick(View v) {
-        switch (v.getId()) {
-            case R.id.yesbutton: {
-                Intent intent = new Intent(this, recipeProductActivity.class);
+        yesbutton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GroceryActivity.this, recipefinderActivity.class);
                 startActivity(intent);
-                break;
             }
-            case R.id.nobutton: {
-                Intent intent = new Intent(this, recipefinderActivity.class);
+        });
+
+        nobutton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GroceryActivity.this, recipeProductActivity.class);
                 startActivity(intent);
-                break;
             }
-            case R.id.favorites: {
-                Intent intent = new Intent(this, favoriteActivity.class);
+        });
+
+        favorites.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GroceryActivity.this, favoriteActivity.class);
                 startActivity(intent);
-                break;
             }
-        }
+        });
     }
 }
 
