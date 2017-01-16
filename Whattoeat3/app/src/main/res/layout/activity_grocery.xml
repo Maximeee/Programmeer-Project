@@ -4,31 +4,45 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:text="Yes!"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/yesbutton"
-        android:onClick="onClick"/>
-
-    <Button
-        android:text="Favorites"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/favorites"
-        android:onClick="onClick"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="No!"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/house"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="23dp"
         android:id="@+id/nobutton"
-        android:onClick="onClick"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/food1"
+        android:layout_alignTop="@+id/nobutton"
+        android:layout_toRightOf="@+id/nobutton"
+        android:layout_toEndOf="@+id/nobutton"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
+        android:id="@+id/yesbutton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/floppydisk"
+        android:id="@+id/favorites"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/nobutton"
+        android:layout_alignStart="@+id/nobutton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/checkmark"
+        android:layout_alignTop="@+id/favorites"
+        android:layout_alignLeft="@+id/yesbutton"
+        android:layout_alignStart="@+id/yesbutton"
+        android:id="@+id/grocerylist" />
 
 </RelativeLayout>

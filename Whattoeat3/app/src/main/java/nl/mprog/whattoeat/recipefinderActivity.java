@@ -1,12 +1,12 @@
 package nl.mprog.whattoeat;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import java.util.List;
-
 
 public class recipefinderActivity extends AppCompatActivity {
 
@@ -23,5 +23,20 @@ public class recipefinderActivity extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, recpearray);
         Recipelist.setAdapter(arrayAdapter);
 
+        Recipelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                System.out.println(Recipelist.getItemAtPosition(position));
+                String s = (String) Recipelist.getItemAtPosition(position);
+
+                Intent intent = new Intent(recipefinderActivity.this, detailActivity.class);
+                intent.putExtra("detailID", s);
+                startActivity(intent);
+            }
+        });
     }
+
+    //TODO: API implementeren hierzo,
+
+
 }
