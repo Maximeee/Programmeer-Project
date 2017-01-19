@@ -31,7 +31,8 @@
         <activity android:name=".recipefinderActivity" />
         <activity android:name=".recipeProductActivity" />
         <activity android:name=".favoriteActivity" />
-        <activity android:name=".detailActivity"></activity>
+        <activity android:name=".detailActivity" />
+        <activity android:name=".RecipeActivity"></activity>
     </application>
 
 </manifest>

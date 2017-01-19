@@ -5,55 +5,92 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
-public class detailActivity extends AppCompatActivity {
+public class RecipeActivity extends AppCompatActivity {
 
-    String detailID;
-    Button buttonSave;
+    String products;
+
+    private List<String> recipeArray = new ArrayList<String>();
+    private ListView recipes;
+    private ArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_recipe);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            detailID = bundle.getString("detailID");
-            System.out.println(bundle.getString("detailID"));
+            products = bundle.getString("products");
+            System.out.println(products);
         }
 
+        recipes = (ListView) findViewById(R.id.recipes);
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, recipeArray);
+        recipes.setAdapter(arrayAdapter);
 
-//        new FoodAPI().execute("https://");
+        try {
+            new FoodAPI().execute("/recipes/findByIngredients?ingredients=" + URLEncoder.encode(products, "UTF-8"));
+            System.out.println("jeeeej");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-
-        buttonSave = (Button) findViewById(R.id.buttonSave);
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        recipes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                System.out.println(recipes.getItemAtPosition(position));
+                String s = (String) recipes.getItemAtPosition(position);
 
+                Intent intent = new Intent(RecipeActivity.this, detailActivity.class);
+                intent.putExtra("detailID", s);
+                startActivity(intent);
             }
         });
+
     }
 
+    void reloadList(JSONArray array) {
+        recipeArray.clear();
+
+        try {
+            //JSONArray results = object.getJSONArray("results");
+            if (array != null) {
+                for (int i = 0; i < array.length(); i++) {
+                    JSONObject result = (JSONObject) array.get(i);
+                    recipeArray.add(result.getString("title"));
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            } else {
+                recipeArray.add("No results");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // https://developer.android.com/reference/android/os/AsyncTask.html
     public class FoodAPI extends AsyncTask<String, String, String> {
 
         protected String doInBackground(String... params) {
@@ -134,9 +171,8 @@ public class detailActivity extends AppCompatActivity {
             }
 
             System.out.println(object);
-//            recipefinderActivity.this.reloadList(object);
+            RecipeActivity.this.reloadList(object);
         }
     }
 
 }
-

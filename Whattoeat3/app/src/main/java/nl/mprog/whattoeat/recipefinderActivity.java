@@ -1,6 +1,5 @@
 package nl.mprog.whattoeat;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +33,7 @@ import java.util.TimerTask;
 
 public class recipefinderActivity extends AppCompatActivity {
 
-    private List<String> recipeArray = new ArrayList<String>();
+    private List<JSONObject> recipeArray = new ArrayList<JSONObject>();
 
     private ListView Recipelist;
     private ArrayAdapter arrayAdapter;
@@ -45,7 +44,7 @@ public class recipefinderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipefinder);
 
         Recipelist = (ListView) findViewById(R.id.recipelist);
-        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, recipeArray);
+        arrayAdapter = new RecipeAdapter(this, android.R.layout.simple_list_item_1, (ArrayList) recipeArray);
         Recipelist.setAdapter(arrayAdapter);
 
         Recipelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -59,8 +58,6 @@ public class recipefinderActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
 
         EditText recipeFinder = (EditText) findViewById(R.id.recipeSearchBox);
         recipeFinder.addTextChangedListener(new TextWatcher() {
@@ -87,7 +84,7 @@ public class recipefinderActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 try {
-                                    // NOTE: UNSAFE, DEBUG
+                                    // TODO: UNSAFE, DEBUG
                                     new FoodAPI().execute("/recipes/autocomplete?number=100&query=" + URLEncoder.encode(editable.toString(), "UTF-8"));
                                 } catch (UnsupportedEncodingException e) {
                                     e.printStackTrace();
@@ -111,11 +108,9 @@ public class recipefinderActivity extends AppCompatActivity {
             if (array != null) {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject result = (JSONObject) array.get(i);
-                    recipeArray.add(result.getString("title"));
+                    recipeArray.add(result);
                     arrayAdapter.notifyDataSetChanged();
                 }
-            } else {
-                recipeArray.add("No results");
             }
         } catch (JSONException e) {
             e.printStackTrace();
