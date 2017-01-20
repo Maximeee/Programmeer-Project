@@ -50,18 +50,6 @@ public class RecipeAdapter extends ArrayAdapter<ArrayList> {
             e.printStackTrace();
         }
 
-
-//
-//        TextView tv_outagnumber = (TextView) rowView.findViewById(R.id.tv_outagnumber);
-//        TextView tv_impact = (TextView) rowView.findViewById(R.id.tv_impact);
-//        TextView tv_status = (TextView) rowView.findViewById(R.id.tv_status);
-//        TextView tv_timestamp = (TextView) rowView.findViewById(R.id.tv_timestamp);
-//
-//        tv_outagnumber.setText(outagesObject.outagnumber);
-//        tv_impact.setText(outagesObject.impact);
-//        tv_status.setText(outagesObject.status);
-//        tv_timestamp.setText(outagesObject.timestamp);
-
         return rowView;
     }
 }
