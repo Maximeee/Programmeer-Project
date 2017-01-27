@@ -50,8 +50,16 @@ public class recipefinderActivity extends AppCompatActivity {
         Recipelist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                System.out.println(Recipelist.getItemAtPosition(position));
-                String s = (String) Recipelist.getItemAtPosition(position);
+
+                System.out.println(recipeArray.get(position));
+                String s = null;
+                try {
+                    s = recipeArray.get(position).getString("id");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println(s + "recipefinder");
 
                 Intent intent = new Intent(recipefinderActivity.this, detailActivity.class);
                 intent.putExtra("detailID", s);
