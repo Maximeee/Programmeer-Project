@@ -1,12 +1,10 @@
-package nl.mprog.whattoeat;
-
-/**
- * Created by maximeweekhout on 10-01-17.
- */
+package com.google.firebase.quickstart.auth;
 
 import android.app.ProgressDialog;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
+
+import nl.mprog.whattoeat.R;
 
 public class BaseActivity extends AppCompatActivity {
 

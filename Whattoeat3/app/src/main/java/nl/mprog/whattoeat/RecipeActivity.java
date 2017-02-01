@@ -29,6 +29,7 @@ import java.util.List;
 public class RecipeActivity extends AppCompatActivity {
 
     String products;
+    String id;
 
     private List<String> recipeArray = new ArrayList<String>();
     private ListView recipes;
@@ -60,10 +61,10 @@ public class RecipeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 System.out.println(recipes.getItemAtPosition(position));
-                String s = (String) recipes.getItemAtPosition(position);
+                System.out.println(id);
 
                 Intent intent = new Intent(RecipeActivity.this, detailActivity.class);
-                intent.putExtra("detailID", s);
+                intent.putExtra("detailID", id);
                 startActivity(intent);
             }
         });
@@ -79,6 +80,7 @@ public class RecipeActivity extends AppCompatActivity {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject result = (JSONObject) array.get(i);
                     recipeArray.add(result.getString("title"));
+                    id = result.getString("id");
                     arrayAdapter.notifyDataSetChanged();
                 }
             } else {

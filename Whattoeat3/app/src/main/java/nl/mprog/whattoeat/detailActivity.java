@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,10 +32,12 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.multiArch;
 import static android.R.attr.type;
 
 public class detailActivity extends AppCompatActivity {
 
+    private Button Savebutton;
     private String detailID;
     private TextView Title;
     private TextView Instructions;
@@ -59,9 +63,11 @@ public class detailActivity extends AppCompatActivity {
         new FoodAPI().execute("/recipes/" + detailID + "/analyzedInstructions", "instructions");
         new FoodAPI().execute("/recipes/" + detailID + "/summary", "title");
 
+        FirebaseAuth Auth = FirebaseAuth.getInstance();
+        FirebaseUser user = Auth.getCurrentUser();
 
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("Users").child(user.getUid());
 
         Title = (TextView) findViewById(R.id.vTitle);
         Instructions = (TextView) findViewById(R.id.vInstructions);
@@ -70,6 +76,17 @@ public class detailActivity extends AppCompatActivity {
         Ingredients = (ListView) findViewById(R.id.vIngredients);
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
         Ingredients.setAdapter(arrayAdapter);
+
+        Savebutton = (Button) findViewById(R.id.Savebutton);
+        Savebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                myRef.child(detailID).push();
+                myRef.push().setValue(detailID);
+//                myRef.child("userID").push().setValue(detailID);
+            }
+        });
+
     }
 
     public class FoodAPI extends AsyncTask<String, String, String> {

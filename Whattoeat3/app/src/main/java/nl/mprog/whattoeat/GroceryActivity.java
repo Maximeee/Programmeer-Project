@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.android.gms.auth.api.signin.internal.SignInHubActivity;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class GroceryActivity extends AppCompatActivity {
 
     ImageButton yesbutton;
     ImageButton nobutton;
     ImageButton favorites;
+    Button Signout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,7 @@ public class GroceryActivity extends AppCompatActivity {
         yesbutton = (ImageButton) findViewById(R.id.yesbutton);
         nobutton = (ImageButton) findViewById(R.id.nobutton);
         favorites = (ImageButton) findViewById(R.id.favorites);
+        Signout = (Button) findViewById(R.id.SignOut);
 
         yesbutton.setOnClickListener(new View.OnClickListener() {
 
@@ -48,6 +53,17 @@ public class GroceryActivity extends AppCompatActivity {
                 Intent intent = new Intent(GroceryActivity.this, favoriteActivity.class);
                 startActivity(intent);
             }
+        });
+
+        Signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("signout");
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(GroceryActivity.this, ChooserActivity.class);
+                startActivity(intent);
+            }
+
         });
     }
 }

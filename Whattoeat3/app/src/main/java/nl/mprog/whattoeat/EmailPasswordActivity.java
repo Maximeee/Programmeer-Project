@@ -15,9 +15,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.quickstart.auth.BaseActivity;
 
-public class EmailPasswordActivity extends BaseActivity implements
-        View.OnClickListener {
+public class EmailPasswordActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "EmailPassword";
 
@@ -38,6 +40,10 @@ public class EmailPasswordActivity extends BaseActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_email_password);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference myRef = database.getReference("Users");
+
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
@@ -62,6 +68,7 @@ public class EmailPasswordActivity extends BaseActivity implements
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+//                    myRef.child(user.getUid()).setValue("");
                     next();
 
                 } else {
