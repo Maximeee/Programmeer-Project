@@ -60,7 +60,7 @@ public class GroceryActivity extends AppCompatActivity {
             public void onClick(View view) {
                 System.out.println("signout");
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(GroceryActivity.this, ChooserActivity.class);
+                Intent intent = new Intent(GroceryActivity.this, EmailPasswordActivity.class);
                 startActivity(intent);
             }
 
