@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,13 +26,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.R.attr.type;
 
 public class detailActivity extends AppCompatActivity {
 
-    String detailID;
-    TextView Title;
-    TextView Instructions;
-    ListView Ingredients;
+    private String detailID;
+    private TextView Title;
+    private TextView Instructions;
+    private ListView Ingredients;
+    private ArrayAdapter arrayAdapter;
+    private List<String> arrayList = new ArrayList<String>();
+    private String sourceUrl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +55,9 @@ public class detailActivity extends AppCompatActivity {
         }
 
         System.out.println(detailID + "detailact");
-        new FoodAPI().execute("/recipes/" + detailID + "/analyzedInstructions");
+        new FoodAPI().execute("/recipes/" + detailID + "/information", "ingredients");
+        new FoodAPI().execute("/recipes/" + detailID + "/analyzedInstructions", "instructions");
+        new FoodAPI().execute("/recipes/" + detailID + "/summary", "title");
 
 
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -54,12 +66,21 @@ public class detailActivity extends AppCompatActivity {
         Title = (TextView) findViewById(R.id.vTitle);
         Instructions = (TextView) findViewById(R.id.vInstructions);
         Instructions.setMovementMethod(new ScrollingMovementMethod());
+
         Ingredients = (ListView) findViewById(R.id.vIngredients);
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayList);
+        Ingredients.setAdapter(arrayAdapter);
     }
 
     public class FoodAPI extends AsyncTask<String, String, String> {
 
+        protected String type = "";
+
         protected String doInBackground(String... params) {
+
+            System.out.println(params[1]);
+
+            type = params[1];
 
             HttpURLConnection connection = null;
             BufferedReader reader = null;
@@ -129,29 +150,86 @@ public class detailActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            JSONArray array;
-            try {
-                array = new JSONArray(result);
-                JSONObject object = (JSONObject) array.get(0);
-                JSONArray instr = object.getJSONArray("steps");
+            if (type.equals("")) {
 
-                System.out.println(instr.length());
-                int i;
-                StringBuilder stringBuilder = new StringBuilder();
-
-                for(i = 0; i < instr.length(); i++) {
-                    JSONObject jeej = (JSONObject) instr.get(i);
-                    stringBuilder.append("Step" + jeej.getString("number") + ": " + jeej.getString("step"));
-                }
-
-                String instructions = stringBuilder.toString();
-                Instructions.setText(instructions);
-
-                System.out.println(object.getJSONArray("steps"));
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
+            else if (type.equals("ingredients")) {
+                detailActivity.this.getIngredients(result);
+                detailActivity.this.getURL(result);
+            }
+            else if (type.equals("instructions")) {
+                detailActivity.this.processInstructions(result);
+            }
+            else if (type.equals("title")) {
+                detailActivity.this.getTitle(result);
+            }
+        }
+    }
 
+    private void processInstructions (String result) {
+
+        JSONArray array;
+        try {
+            array = new JSONArray(result);
+            JSONObject object = (JSONObject) array.get(0);
+            JSONArray instr = object.getJSONArray("steps");
+            System.out.println(instr.length());
+            int i;
+            StringBuilder stringBuilder = new StringBuilder();
+            for (i = 0; i < instr.length(); i++) {
+                JSONObject jeej = (JSONObject) instr.get(i);
+                stringBuilder.append("Step " + jeej.getString("number") + ": " + jeej.getString("step") + System.getProperty("line.separator"));
+            }
+            String instructions = stringBuilder.toString();
+            Instructions.setText(instructions);
+
+            System.out.println(object.getJSONArray("steps"));
+
+
+        } catch (JSONException e) {
+            Instructions.setText("Get instructions on: " + sourceUrl);
+            e.printStackTrace();
+        }
+    }
+
+    private void getTitle (String result) {
+
+        System.out.println(result);
+        try {
+            JSONObject object = new JSONObject(result);
+            Title.setText(object.getString("title"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getIngredients(String result) {
+        arrayList.clear();
+
+        try {
+            JSONObject object = new JSONObject(result);
+            JSONArray array = object.getJSONArray("extendedIngredients");
+
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject list = (JSONObject) array.get(i);
+                arrayList.add(list.getString("originalString"));
+            }
+            arrayAdapter.notifyDataSetChanged();
+
+        } catch (JSONException e) {
+            arrayList.add("No ingredients found");
+            e.printStackTrace();
+        }
+    }
+
+    private void getURL(String result) {
+        try {
+            JSONObject object = new JSONObject(result);
+            sourceUrl = object.getString("sourceUrl");
+            System.out.println(sourceUrl);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
