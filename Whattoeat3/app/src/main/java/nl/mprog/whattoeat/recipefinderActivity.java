@@ -51,15 +51,12 @@ public class recipefinderActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
-                System.out.println(recipeArray.get(position));
                 String s = null;
                 try {
                     s = recipeArray.get(position).getString("id");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                System.out.println(s + "recipefinder");
 
                 Intent intent = new Intent(recipefinderActivity.this, detailActivity.class);
                 intent.putExtra("detailID", s);
@@ -92,7 +89,6 @@ public class recipefinderActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 try {
-                                    // TODO: UNSAFE, DEBUG
                                     new FoodAPI().execute("/recipes/autocomplete?number=100&query=" + URLEncoder.encode(editable.toString(), "UTF-8"));
                                 } catch (UnsupportedEncodingException e) {
                                     e.printStackTrace();
@@ -112,7 +108,6 @@ public class recipefinderActivity extends AppCompatActivity {
         recipeArray.clear();
 
         try {
-            //JSONArray results = object.getJSONArray("results");
             if (array != null) {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject result = (JSONObject) array.get(i);
@@ -206,7 +201,6 @@ public class recipefinderActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            System.out.println(object);
             recipefinderActivity.this.reloadList(object);
         }
     }

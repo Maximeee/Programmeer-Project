@@ -1,6 +1,5 @@
 package nl.mprog.whattoeat;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,12 +27,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.R.attr.multiArch;
-import static android.R.attr.type;
 
 public class detailActivity extends AppCompatActivity {
 
@@ -55,10 +50,8 @@ public class detailActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             detailID = bundle.getString("detailID");
-            System.out.println(bundle.getString("detailID"));
         }
 
-        System.out.println(detailID + "detailact");
         new FoodAPI().execute("/recipes/" + detailID + "/information", "ingredients");
         new FoodAPI().execute("/recipes/" + detailID + "/analyzedInstructions", "instructions");
         new FoodAPI().execute("/recipes/" + detailID + "/summary", "title");
@@ -91,8 +84,6 @@ public class detailActivity extends AppCompatActivity {
         protected String type = "";
 
         protected String doInBackground(String... params) {
-
-            System.out.println(params[1]);
 
             type = params[1];
 
@@ -187,7 +178,6 @@ public class detailActivity extends AppCompatActivity {
             array = new JSONArray(result);
             JSONObject object = (JSONObject) array.get(0);
             JSONArray instr = object.getJSONArray("steps");
-            System.out.println(instr.length());
             int i;
             StringBuilder stringBuilder = new StringBuilder();
             for (i = 0; i < instr.length(); i++) {
@@ -197,9 +187,6 @@ public class detailActivity extends AppCompatActivity {
             String instructions = stringBuilder.toString();
             Instructions.setText(instructions);
 
-            System.out.println(object.getJSONArray("steps"));
-
-
         } catch (JSONException e) {
             Instructions.setText("Get instructions on: " + sourceUrl);
             e.printStackTrace();
@@ -208,7 +195,6 @@ public class detailActivity extends AppCompatActivity {
 
     private void getTitle (String result) {
 
-        System.out.println(result);
         try {
             JSONObject object = new JSONObject(result);
             Title.setText(object.getString("title"));
@@ -240,7 +226,6 @@ public class detailActivity extends AppCompatActivity {
         try {
             JSONObject object = new JSONObject(result);
             sourceUrl = object.getString("sourceUrl");
-            System.out.println(sourceUrl);
 
         } catch (JSONException e) {
             e.printStackTrace();

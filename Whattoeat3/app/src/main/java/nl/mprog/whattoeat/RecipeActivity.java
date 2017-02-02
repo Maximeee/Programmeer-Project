@@ -75,7 +75,6 @@ public class RecipeActivity extends AppCompatActivity {
         recipeArray.clear();
 
         try {
-            //JSONArray results = object.getJSONArray("results");
             if (array != null) {
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject result = (JSONObject) array.get(i);

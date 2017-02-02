@@ -37,8 +37,6 @@ public class RecipeAdapter extends ArrayAdapter<ArrayList> {
     public View getView(int position, View convertView, ViewGroup parent)
     {
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        System.out.println(recipeList.get(position));
-
 
         View rowView = inflater.inflate(R.layout.single_row, parent, false);
         TextView title = (TextView) rowView.findViewById(R.id.titleView);

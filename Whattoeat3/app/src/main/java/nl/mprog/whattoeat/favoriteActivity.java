@@ -3,8 +3,6 @@ package nl.mprog.whattoeat;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -14,7 +12,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
@@ -29,10 +26,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class favoriteActivity extends AppCompatActivity {
 
@@ -63,7 +57,6 @@ public class favoriteActivity extends AppCompatActivity {
                 recipeArray.clear();
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     String value = (String) child.getValue();
-                    System.out.println(value);
                     new FoodAPI().execute("/recipes/" + value + "/summary");
 
                 }
@@ -76,22 +69,11 @@ public class favoriteActivity extends AppCompatActivity {
             }
         });
 
-        favorites.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-
-
-                return true;
-            }
-        });
-
     }
 
     void reloadList(JSONObject object) {
 
         try {
-            //JSONArray results = object.getJSONArray("results");
             if (object != null) {
                 String result = object.getString("title");
                 recipeArray.add(result);
@@ -183,8 +165,6 @@ public class favoriteActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            System.out.println(object);
             favoriteActivity.this.reloadList(object);
         }
     }

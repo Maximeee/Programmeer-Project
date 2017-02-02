@@ -1,14 +1,12 @@
 package nl.mprog.whattoeat;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.google.android.gms.auth.api.signin.internal.SignInHubActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class GroceryActivity extends AppCompatActivity {
