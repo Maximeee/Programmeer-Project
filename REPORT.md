@@ -15,7 +15,7 @@ Zodra de gebruiker op 1 van de recepten klikt, krijg je een pagina te zien met d
 De gebruiker kan er ook voor kiezen om recepten te zoeken aan de hand van trefwoorden, die in de titel van het recept moeten zitten. Dan komt er een lijst in beeld van maximaal 100 recepten. Ook hier kan ook gelikt worden en komt dezelfde gedetailleerde pagina in beeld.
 Vanaf die detailpagina kan worden gekozen om het recept op te slaan. Deze komt dan in de firebase database te staan onder de UserID en zodra er vanuit home op de favorietenknop wordt geklikt, zal er een lijst met favorieten in beeld komen.
 
-![Flow Schema](https://github.com/Maximeee/Programmeer-Project/blob/master/doc/FlowSchema)
+![Flow Schema](https://github.com/Maximeee/Programmeer-Project/blob/master/doc/FlowSchema.png)
 
 EmailPasswordActivity: Deze activity krijgt elke nieuwe en uitgelogde gebruiker standaard te zien. Hier kunnen zij inloggen met Firebase of een account aanmaken. De eisen voor het account aanmaken is dat het wachtwoord 6 tekens moet zijn minimaal. 
 
