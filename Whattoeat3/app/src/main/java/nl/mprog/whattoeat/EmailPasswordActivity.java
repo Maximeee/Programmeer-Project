@@ -190,7 +190,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
 
         String password = mPasswordField.getText().toString();
         if (TextUtils.isEmpty(password)) {
-            mPasswordField.setError("Required.");
+            mPasswordField.setError("Required. Must be 6 characters.");
             valid = false;
         } else {
             mPasswordField.setError(null);

@@ -40,7 +40,7 @@
         android:layout_toEndOf="@+id/nobutton" />
 
     <TextView
-        android:text="Search for recipes!"
+        android:text="Search for recipes using products you have in house"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/nobutton"
@@ -50,7 +50,7 @@
         android:textSize="30dp"/>
 
     <TextView
-        android:text="Search with products!"
+        android:text="Search for recipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/yesbutton"

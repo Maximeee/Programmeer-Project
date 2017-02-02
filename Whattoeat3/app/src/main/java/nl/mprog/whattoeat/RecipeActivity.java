@@ -51,7 +51,7 @@ public class RecipeActivity extends AppCompatActivity {
         recipes.setAdapter(arrayAdapter);
 
         try {
-            new FoodAPI().execute("/recipes/findByIngredients?ingredients=" + URLEncoder.encode(products, "UTF-8"));
+            new FoodAPI().execute("/recipes/findByIngredients?number=100&ingredients=" + URLEncoder.encode(products, "UTF-8"));
             System.out.println("jeeeej");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
