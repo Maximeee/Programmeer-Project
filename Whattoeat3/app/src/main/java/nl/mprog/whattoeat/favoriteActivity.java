@@ -3,6 +3,8 @@ package nl.mprog.whattoeat;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -12,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
@@ -29,11 +32,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class favoriteActivity extends AppCompatActivity {
 
     private ListView favorites;
     private List<String> recipeArray = new ArrayList<>();
+
     private ArrayAdapter arrayAdapter;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -48,13 +53,9 @@ public class favoriteActivity extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, (ArrayList) recipeArray);
         favorites.setAdapter(arrayAdapter);
 
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         myRef = database.getReference("Users").child(user.getUid());
-
-
-        // TODO: info ophalen
-        // TODO: laten zien in listview
-        // TODO zorgen dat t werkt
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -67,7 +68,6 @@ public class favoriteActivity extends AppCompatActivity {
 
                 }
 
-
             }
 
             @Override
@@ -76,7 +76,15 @@ public class favoriteActivity extends AppCompatActivity {
             }
         });
 
+        favorites.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+
+
+                return true;
+            }
+        });
 
     }
 

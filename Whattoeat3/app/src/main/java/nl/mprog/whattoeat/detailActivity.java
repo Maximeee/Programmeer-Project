@@ -81,12 +81,9 @@ public class detailActivity extends AppCompatActivity {
         Savebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                myRef.child(detailID).push();
                 myRef.push().setValue(detailID);
-//                myRef.child("userID").push().setValue(detailID);
             }
         });
-
     }
 
     public class FoodAPI extends AsyncTask<String, String, String> {
